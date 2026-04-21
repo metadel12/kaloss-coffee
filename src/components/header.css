@@ -1,0 +1,169 @@
+/* Reset and base */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #0e0e0e;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Layout split */
+.header-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  border-radius: 40px;
+}
+
+/* Left: Text Section */
+.text-section {
+  width: 50%;
+  background-color:none
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-title {
+  font-size: 42px;
+  margin-bottom: 40px;
+  color: #812704ff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.text-container {
+  font-weight: bold;
+  font-size: 28px;
+  position: relative;
+  height: 260px;
+}
+
+.text-container > div {
+  animation: come2life 12s linear infinite;
+  transform-origin: center center;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  text-shadow: 1px 1px 3px #000;
+  color:black;
+}
+
+.text-container > div:nth-child(1) {
+  animation-delay: 0s;
+  top: 0;
+}
+.text-container > div:nth-child(2) {
+  animation-delay: 3s;
+  top: 0;
+}
+.text-container > div:nth-child(3) {
+  animation-delay: 6s;
+  top: 0;
+}
+.text-container > div:nth-child(4) {
+  animation-delay: 9s;
+  top: 0;
+}
+.text-container > div:nth-child(5) {
+  animation-delay: 12s;
+  top: 0;
+}
+
+@keyframes come2life {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2);
+    filter: blur(10px);
+    opacity: 0;
+  }
+}
+
+/* Right: Image Section */
+.image-section {
+  width: 50%;
+  background-color: #8c1212de;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  overflow: hidden;
+}
+
+.top-right-text {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  font-size: 50px;
+  font-weight: bold;
+  color: #633b06ec;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.coffee-packet {
+  width: 600px;
+  height: auto;
+  max-height: 500px;
+  z-index: 1;
+  animation: fadeIn 1.5s ease-in-out;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Optional beans/leaves for decoration */
+.coffee-beans {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.coffee-leaf {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  width: 100px;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,96 @@
+const mongoose = require('mongoose');
+
+const orderSchema = new mongoose.Schema({
+    orderNumber: { type: String, required: true, unique: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    customer: {
+        fullName: { type: String, required: true },
+        email: { type: String, required: true },
+        phone: { type: String, required: true },
+        alternativePhone: { type: String },
+        region: { type: String, required: true },
+        subCity: { type: String },
+        houseNumber: { type: String, required: true },
+        landmark: { type: String },
+        deliveryInstructions: { type: String },
+    },
+    items: [
+        {
+            productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', default: null },
+            catalogProductId: { type: String, default: '' },
+            name: { type: String, required: true },
+            variant: { type: String, required: true },
+            quantity: { type: Number, required: true },
+            priceETB: { type: Number, required: true },
+            subtotal: { type: Number, required: true },
+            giftWrap: { type: Boolean, default: false },
+            noteToSeller: { type: String, default: '' },
+        },
+    ],
+    summary: {
+        subtotal: { type: Number, required: true },
+        shippingFee: { type: Number, required: true },
+        giftWrapFee: { type: Number, required: true },
+        discountAmount: { type: Number, required: true },
+        discountCode: { type: String, default: '' },
+        taxAmount: { type: Number, required: true },
+        codFee: { type: Number, default: 0 },
+        totalETB: { type: Number, required: true },
+        savings: { type: Number, default: 0 },
+    },
+    paymentMethod: {
+        type: String,
+        enum: ['Telebirr', 'Chapa', 'CBEBirr', 'BankTransfer', 'COD', 'HelloCash'],
+        required: true,
+    },
+    paymentStatus: {
+        type: String,
+        enum: ['Pending', 'Processing', 'Paid', 'Failed', 'Refunded', 'Pending Verification', 'Awaiting Payment'],
+        default: 'Pending',
+    },
+    paymentReference: { type: String },
+    paymentReceipt: { type: String },
+    paymentVerification: {
+        status: {
+            type: String,
+            enum: ['pending', 'verified', 'rejected'],
+            default: 'pending',
+        },
+        verifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+        verifiedAt: { type: Date, default: null },
+        receiptUrl: { type: String, default: '' },
+        transactionReference: { type: String, default: '' },
+        verificationNotes: { type: String, default: '' },
+    },
+    orderStatus: {
+        type: String,
+        enum: ['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+        default: 'Pending',
+    },
+    deliveryOption: { type: String, required: true },
+    trackingNumber: { type: String },
+    estimatedDelivery: { type: Date },
+    specialInstructions: { type: String, default: '' },
+    timeline: [{
+        label: { type: String, required: true },
+        detail: { type: String, required: true },
+        timestamp: { type: Date, default: Date.now },
+    }],
+    notificationLog: {
+        confirmationEmailSent: { type: Boolean, default: false },
+        confirmationSmsSent: { type: Boolean, default: false },
+        abandonedCartSmsScheduledAt: { type: Date },
+        abandonedCartEmailScheduledAt: { type: Date },
+    },
+    adminNotes: { type: String, default: '' },
+    lastUpdatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    fraudChecks: {
+        ipAddress: { type: String },
+        userAgent: { type: String },
+        riskLevel: { type: String, default: 'low' },
+        manualReview: { type: Boolean, default: false },
+    },
+    completedAt: { type: Date },
+}, { timestamps: true });
+
+module.exports = mongoose.model('Order', orderSchema);

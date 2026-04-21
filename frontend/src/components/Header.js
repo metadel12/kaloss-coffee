@@ -1,0 +1,47 @@
+import Link from 'next/link';
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
+
+export default function Header() {
+    const { user, logout } = useAuth();
+    const { getCartItemsCount } = useCart();
+    const [menuOpen, setMenuOpen] = useState(false);
+    const closeMenu = () => setMenuOpen(false);
+
+    return (
+        <header className="site-header kaloss-header">
+            <div className="kaloss-brand">
+                <Link href="/" onClick={closeMenu}>Kaloss Coffee</Link>
+                <span>From Ethiopian Highlands to Your Cup</span>
+            </div>
+
+            <button type="button" className="menu-toggle" onClick={() => setMenuOpen(previous => !previous)}>
+                Menu
+            </button>
+
+            <nav className={`kaloss-nav ${menuOpen ? 'open' : ''}`}>
+                <Link href="/products" onClick={closeMenu}>Our Coffees</Link>
+                <Link href="/limited-edition" onClick={closeMenu}>Limited Edition</Link>
+                <Link href="/gifts" onClick={closeMenu}>Gift Sets</Link>
+                <Link href="/wholesale" onClick={closeMenu}>Wholesale</Link>
+                <Link href="/about" onClick={closeMenu}>About</Link>
+                <Link href="/contact" onClick={closeMenu}>Contact</Link>
+                <Link href="/compare" onClick={closeMenu}>Compare</Link>
+                <Link href="/cart" className="header-cart-link" onClick={closeMenu}>Cart ({getCartItemsCount()})</Link>
+                {user ? (
+                    <div className="auth-controls">
+                        <Link href="/profile" onClick={closeMenu}>Selam, {user.fullName || user.name}</Link>
+                        {['admin', 'super_admin'].includes(user.role) && <Link href="/admin/dashboard" onClick={closeMenu}>Admin</Link>}
+                        <button type="button" onClick={logout}>Logout</button>
+                    </div>
+                ) : (
+                    <div className="auth-links">
+                        <Link href="/login" className="header-auth-link login-link" onClick={closeMenu}>Login</Link>
+                        <Link href="/register" className="header-auth-link register-link" onClick={closeMenu}>Sign Up</Link>
+                    </div>
+                )}
+            </nav>
+        </header>
+    );
+}

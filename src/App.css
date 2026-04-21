@@ -1,0 +1,91 @@
+/* App.css */
+
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  scroll-behavior: smooth;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fffaf0; /* Light coffee background */
+}
+
+/* ROOT CONTAINER */
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* EACH SECTION */
+section {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* NAVBAR (optional layout if needed) */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+/* SECTION TITLES */
+.section-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #4b2e1e;
+}
+
+/* BASIC TEXT STYLING */
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #3b2c1e;
+}
+
+/* LINKS (for nav or scroll links) */
+a {
+  text-decoration: none;
+  color: #4b2e1e;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #d2691e;
+}
+
+/* IMAGE STYLING (optional override) */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* FOOTER STYLES (if used) */
+footer {
+  padding: 20px;
+  background-color: #f5f5dc;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}

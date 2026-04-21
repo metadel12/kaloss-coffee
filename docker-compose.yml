@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: kaloss_mongo
+    restart: unless-stopped
+    volumes:
+      - ./database/mongodb-data:/data/db
+    ports:
+      - 27017:27017
+
+  backend:
+    build:
+      context: ./backend
+    container_name: kaloss_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: kaloss_frontend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend

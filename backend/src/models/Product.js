@@ -1,0 +1,82 @@
+const mongoose = require('mongoose');
+
+const productSchema = new mongoose.Schema({
+    name: { type: String },
+    title: { type: String, required: true },
+    slug: { type: String, unique: true, sparse: true },
+    description: { type: String },
+    price: { type: Number, required: true },
+    image: { type: String },
+    imageUrl: { type: String },
+    countInStock: { type: Number, default: 0 },
+    region: { type: String },
+    subRegion: { type: String },
+    elevation: { type: Number },
+    process: { type: String },
+    varietal: { type: String },
+    farmerStory: { type: String },
+    brewingGuide: { type: String },
+    grade: { type: String },
+    roastDate: { type: String },
+    inStock: { type: Boolean, default: true },
+    origin: {
+        region: { type: String },
+        country: { type: String, default: 'Ethiopia' },
+        altitude: { type: String },
+        coordinates: {
+            lat: { type: Number },
+            lng: { type: Number },
+        },
+    },
+    images: {
+        hero: { type: String },
+        thumbnail: { type: String },
+        gallery: [{ type: String }],
+    },
+    pricing: {
+        current: { type: Number },
+        original: { type: Number },
+        currency: { type: String, default: 'USD' },
+    },
+    roastLevel: {
+        type: { type: String, enum: ['light', 'medium-light', 'medium', 'medium-dark', 'dark'] },
+        percentage: { type: Number, default: 0 },
+    },
+    tastingNotes: [{
+        name: { type: String },
+        intensity: { type: Number, min: 1, max: 5 },
+        color: { type: String },
+    }],
+    variants: [{
+        weight: { type: String },
+        priceETB: { type: Number },
+        stock: { type: Number, default: 0 },
+        sku: { type: String },
+    }],
+    stats: {
+        rating: { type: Number, default: 0 },
+        reviewCount: { type: Number, default: 0 },
+        soldCount: { type: Number, default: 0 },
+        views: { type: Number, default: 0 },
+    },
+    isFeatured: { type: Boolean, default: false },
+    isLimited: { type: Boolean, default: false },
+    bestSeller: { type: Boolean, default: false },
+    limitedEdition: { type: Boolean, default: false },
+    seasonal: { type: Boolean, default: false },
+    displayOrder: { type: Number, default: 0 },
+    status: {
+        type: String,
+        enum: ['draft', 'pending', 'approved', 'rejected', 'archived'],
+        default: 'approved',
+    },
+    rejectionReason: { type: String, default: '' },
+    approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    approvedAt: { type: Date, default: null },
+    submittedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    submittedAt: { type: Date, default: null },
+    reviewedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    reviewedAt: { type: Date, default: null },
+}, { timestamps: true });
+
+module.exports = mongoose.model('Product', productSchema);

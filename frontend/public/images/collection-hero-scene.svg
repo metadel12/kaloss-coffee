@@ -1,0 +1,32 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="980" fill="#1A0A05"/>
+<ellipse cx="1230" cy="210" rx="300" ry="220" fill="#F5D9B6" fill-opacity="0.14"/>
+<ellipse cx="1110" cy="320" rx="430" ry="310" fill="#C77A47" fill-opacity="0.18"/>
+<ellipse cx="360" cy="780" rx="540" ry="230" fill="#3F2418" fill-opacity="0.96"/>
+<ellipse cx="980" cy="850" rx="640" ry="260" fill="#5A3421" fill-opacity="0.88"/>
+<ellipse cx="1450" cy="700" rx="320" ry="180" fill="#8E4E29" fill-opacity="0.68"/>
+<path d="M930 200C1010 120 1110 96 1230 126C1340 153 1436 246 1476 370" stroke="#F6D2A7" stroke-opacity="0.18" stroke-width="18" stroke-linecap="round"/>
+<path d="M912 164C1010 88 1128 60 1266 96C1390 129 1496 223 1534 348" stroke="#FFF0DB" stroke-opacity="0.1" stroke-width="8" stroke-linecap="round"/>
+<g opacity="0.42">
+<path d="M230 524C276 436 356 370 470 356C526 349 586 366 642 408" stroke="#E7B27D" stroke-opacity="0.36" stroke-width="16" stroke-linecap="round"/>
+<path d="M244 534C276 564 296 602 298 650" stroke="#84A85D" stroke-opacity="0.52" stroke-width="8" stroke-linecap="round"/>
+<path d="M312 510C334 548 344 586 338 628" stroke="#84A85D" stroke-opacity="0.46" stroke-width="8" stroke-linecap="round"/>
+<path d="M372 470C398 524 404 582 394 642" stroke="#84A85D" stroke-opacity="0.48" stroke-width="8" stroke-linecap="round"/>
+<path d="M448 430C474 490 478 548 468 612" stroke="#84A85D" stroke-opacity="0.42" stroke-width="8" stroke-linecap="round"/>
+<path d="M524 400C550 454 556 518 548 580" stroke="#84A85D" stroke-opacity="0.4" stroke-width="8" stroke-linecap="round"/>
+<ellipse cx="226" cy="544" rx="22" ry="32" fill="#C53D2C"/>
+<ellipse cx="292" cy="516" rx="18" ry="28" fill="#D45A48"/>
+<ellipse cx="360" cy="486" rx="18" ry="28" fill="#C53D2C"/>
+<ellipse cx="438" cy="444" rx="18" ry="28" fill="#D45A48"/>
+<ellipse cx="516" cy="414" rx="18" ry="28" fill="#C53D2C"/>
+</g>
+<g opacity="0.16">
+<circle cx="183" cy="164" r="3" fill="white"/>
+<circle cx="246" cy="122" r="2" fill="white"/>
+<circle cx="306" cy="168" r="2" fill="white"/>
+<circle cx="1326" cy="146" r="3" fill="white"/>
+<circle cx="1380" cy="206" r="2" fill="white"/>
+<circle cx="1466" cy="166" r="2" fill="white"/>
+<circle cx="1220" cy="240" r="2" fill="white"/>
+</g>
+</svg>

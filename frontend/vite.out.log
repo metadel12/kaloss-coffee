@@ -1,0 +1,17 @@
+
+> kaloss-coffee-frontend@1.0.0 dev
+> next dev -p 3001
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3001
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 7.8s
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 35.8s (368 modules)
+ GET / 200 in 3202ms
+ GET / 200 in 21320ms
+ GET /_next/static/webpack/e69702f43c72afe7.webpack.hot-update.json 404 in 37297ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 29ms
+[?25h

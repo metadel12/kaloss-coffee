@@ -1,0 +1,11 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/orders/[orderId]": "pages/orders/[orderId].js",
+  "/register": "pages/register.js",
+  "/verify-email": "pages/verify-email.js",
+  "/products": "pages/products.js",
+  "/compare": "pages/compare.js",
+  "/profile": "pages/profile.js"
+}
