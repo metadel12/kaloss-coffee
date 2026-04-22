@@ -3,7 +3,7 @@ import React from "react";
 import Header from "./components/header";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
-import DrinkCards from "./components/product";
+import DrinkCards from "./components/Product";
 import Testimonial3D from "./components/Testimonial";
 import OurCommunity from "./components/OurCommunity";
 import Footer from "./components/footer";
