@@ -19,7 +19,7 @@ const { errorHandler } = require('./src/middleware/errorMiddleware');
 dotenv.config();
 const app = express();
 const PORT = Number(process.env.PORT) || 5001;
-const FRONTEND_URLS = (process.env.FRONTEND_URLS || process.env.FRONTEND_URL || 'https://kaloss-coffee-97v8.onrender.com/')
+const FRONTEND_URLS = (process.env.FRONTEND_URLS || process.env.FRONTEND_URL || 'https://kaloss-coffee-97v8.onrender.com')
     .split(',')
     .map(url => url.trim())
     .filter(Boolean);
