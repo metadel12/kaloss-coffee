@@ -6,6 +6,8 @@ const FarmVisitRequest = require('../models/FarmVisitRequest');
 const JobApplication = require('../models/JobApplication');
 const CareerOpening = require('../models/CareerOpening');
 const NewsletterSubscriber = require('../models/NewsletterSubscriber');
+const FooterLink = require('../models/FooterLink');
+const SocialMedia = require('../models/SocialMedia');
 
 const fallbackFaqs = [
     {
@@ -109,6 +111,39 @@ const fallbackCareerOpenings = [
     },
 ];
 
+const fallbackFooterLinks = [
+    { category: 'shop', title: 'Yirgacheffe Grade 1', url: '/products?region=Yirgacheffe', description: 'Floral and tea-like lots', badge: 'Top rated', order: 1 },
+    { category: 'shop', title: 'Sidama Natural', url: '/products?region=Sidama', description: 'Berry sweetness and cocoa', order: 2 },
+    { category: 'shop', title: 'Guji Forest Coffee', url: '/products?region=Guji', description: 'Wild-grown fruit layers', order: 3 },
+    { category: 'shop', title: 'Harrar Longberry', url: '/products?region=Harrar', description: 'Classic mocha profile', order: 4 },
+    { category: 'shop', title: 'Limu Washed', url: '/products?region=Limu', description: 'Citrus and honey clarity', order: 5 },
+    { category: 'shop', title: 'Gift Sets', url: '/gifts', description: 'Curated Ethiopian coffee gifts', badge: 'Giftable', order: 6 },
+    { category: 'shop', title: 'Limited Edition', url: '/limited-edition', description: 'Small-lot releases', badge: 'New', order: 7 },
+    { category: 'shop', title: 'Wholesale', url: '/wholesale', description: 'Cafe and hospitality supply', order: 8 },
+    { category: 'support', title: 'FAQ', url: '/contact', description: 'Answers to common questions', order: 1 },
+    { category: 'support', title: 'Shipping Information', url: '/contact', description: 'Delivery windows and regions', order: 2 },
+    { category: 'support', title: 'Returns and Refunds', url: '/contact', description: 'Support for damaged or wrong items', order: 3 },
+    { category: 'support', title: 'Track Order', url: '/orders', description: 'Review your order progress', order: 4 },
+    { category: 'support', title: 'Brewing Guide', url: '/about/process', description: 'Jebena, V60, and espresso tips', order: 5 },
+    { category: 'support', title: 'Privacy Policy', url: '/contact', description: 'How we use your information', order: 6 },
+];
+
+const fallbackSocialPlatforms = [
+    { platform: 'Instagram', url: 'https://instagram.com/kalosscoffee', username: '@kalosscoffee', followerCount: 15200, icon: 'IG' },
+    { platform: 'Facebook', url: 'https://facebook.com/kalosscoffee', username: 'Kaloss Coffee', followerCount: 8500, icon: 'FB' },
+    { platform: 'X', url: 'https://x.com/kalosscoffee', username: '@kalosscoffee', followerCount: 3100, icon: 'X' },
+    { platform: 'TikTok', url: 'https://tiktok.com/@kalosscoffee', username: '@kalosscoffee', followerCount: 5700, icon: 'TT' },
+    { platform: 'LinkedIn', url: 'https://linkedin.com/company/kalosscoffee', username: 'Kaloss Coffee', followerCount: 1200, icon: 'IN' },
+    { platform: 'YouTube', url: 'https://youtube.com/@kalosscoffee', username: '@kalosscoffee', followerCount: 2300, icon: 'YT' },
+    { platform: 'Telegram', url: 'https://t.me/kalosscoffee', username: '@kalosscoffee', followerCount: 4200, icon: 'TG' },
+];
+
+const fallbackInstagramPosts = [
+    { id: 'ig-1', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80', alt: 'Coffee cherries and burlap sacks', url: 'https://instagram.com/kalosscoffee/p/1', label: 'Farm harvest notes' },
+    { id: 'ig-2', image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=400&q=80', alt: 'Barista pouring brewed coffee', url: 'https://instagram.com/kalosscoffee/p/2', label: 'Brew bar moments' },
+    { id: 'ig-3', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', alt: 'Bagged coffee lineup on counter', url: 'https://instagram.com/kalosscoffee/p/3', label: 'Roastery release day' },
+];
+
 const buildReference = prefix => `${prefix}-${new Date().getFullYear()}-${String(Math.floor(10000 + Math.random() * 90000))}`;
 
 const getRequestMeta = req => ({
@@ -128,6 +163,58 @@ const ensureCareerOpeningSeed = async () => {
     if (!count) {
         await CareerOpening.insertMany(fallbackCareerOpenings, { ordered: false }).catch(() => null);
     }
+};
+
+const ensureFooterLinkSeed = async () => {
+    const count = await FooterLink.countDocuments();
+    if (!count) {
+        await FooterLink.insertMany(fallbackFooterLinks, { ordered: false }).catch(() => null);
+    }
+};
+
+const ensureSocialSeed = async () => {
+    const count = await SocialMedia.countDocuments();
+    if (!count) {
+        await SocialMedia.insertMany(fallbackSocialPlatforms, { ordered: false }).catch(() => null);
+    }
+};
+
+const getWorkingHoursStatus = () => {
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Africa/Addis_Ababa',
+        hour: '2-digit',
+        minute: '2-digit',
+        weekday: 'short',
+        hour12: false,
+    });
+    const parts = formatter.formatToParts(new Date());
+    const day = parts.find(part => part.type === 'weekday')?.value || 'Mon';
+    const hour = Number(parts.find(part => part.type === 'hour')?.value || 0);
+    const minute = Number(parts.find(part => part.type === 'minute')?.value || 0);
+    const localTime = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+    const minutes = (hour * 60) + minute;
+    const isSunday = day === 'Sun';
+    const opensAt = isSunday ? null : (day === 'Sat' ? 9 * 60 : (8 * 60) + 30);
+    const closesAt = isSunday ? null : (day === 'Sat' ? 16 * 60 : 18 * 60);
+    const coffeeShopOpen = minutes >= (7 * 60) && minutes <= (22 * 60);
+    const customerSupportOpen = opensAt !== null && minutes >= opensAt && minutes <= closesAt;
+
+    return {
+        timezone: 'Africa/Addis_Ababa',
+        localTime,
+        day,
+        customerSupportOpen,
+        coffeeShopOpen,
+        label: customerSupportOpen ? 'Open now' : 'Closed now',
+        supportHours: {
+            weekdays: 'Mon-Fri: 8:30AM - 6:00PM',
+            saturday: 'Sat: 9:00AM - 4:00PM',
+            sunday: 'Sun: Closed',
+            coffeeShop: 'Coffee Shop: 7:00AM - 10:00PM',
+        },
+        averageReplyHours: 2.4,
+        liveChatAvailable: customerSupportOpen,
+    };
 };
 
 exports.submitContactInquiry = async (req, res) => {
@@ -328,7 +415,11 @@ exports.newsletterSubscribe = async (req, res) => {
         const payload = {
             email: req.body?.email,
             phoneNumber: req.body?.phone,
-            source: 'contact',
+            source: req.body?.source || 'footer',
+            location: req.body?.location,
+            subscribedAt: new Date(),
+            isActive: true,
+            ipAddress: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '',
         };
         const filter = payload.email ? { email: payload.email } : { phoneNumber: payload.phoneNumber };
         const subscriber = await NewsletterSubscriber.findOneAndUpdate(
@@ -344,3 +435,27 @@ exports.newsletterSubscribe = async (req, res) => {
         return res.status(500).json({ message: 'Failed to subscribe' });
     }
 };
+
+exports.getFooterLinks = async (req, res) => {
+    try {
+        await ensureFooterLinkSeed();
+        const links = await FooterLink.find({ isActive: true }).sort({ category: 1, order: 1 }).lean();
+        return res.json(links.map(item => ({ id: item._id, ...item })));
+    } catch (error) {
+        return res.json(fallbackFooterLinks.map((item, index) => ({ id: `fallback-link-${index + 1}`, ...item })));
+    }
+};
+
+exports.getSocialFollowerCounts = async (req, res) => {
+    try {
+        await ensureSocialSeed();
+        const links = await SocialMedia.find({ isActive: true }).sort({ followerCount: -1 }).lean();
+        return res.json(links.map(item => ({ id: item._id, ...item })));
+    } catch (error) {
+        return res.json(fallbackSocialPlatforms.map((item, index) => ({ id: `fallback-social-${index + 1}`, ...item })));
+    }
+};
+
+exports.getInstagramFeed = async (req, res) => res.json(fallbackInstagramPosts);
+
+exports.getWorkingHours = async (req, res) => res.json(getWorkingHoursStatus());

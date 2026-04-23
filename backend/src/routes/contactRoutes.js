@@ -10,6 +10,10 @@ const {
     sendChatMessage,
     getChatMessages,
     newsletterSubscribe,
+    getFooterLinks,
+    getSocialFollowerCounts,
+    getInstagramFeed,
+    getWorkingHours,
 } = require('../controllers/contactController');
 
 const router = express.Router();
@@ -24,5 +28,9 @@ router.post('/careers/apply', submitJobApplication);
 router.post('/chat/message', sendChatMessage);
 router.get('/chat/messages/:sessionId', getChatMessages);
 router.post('/newsletter/subscribe', newsletterSubscribe);
+router.get('/footer/links', getFooterLinks);
+router.get('/social/follower-counts', getSocialFollowerCounts);
+router.get('/social/instagram', getInstagramFeed);
+router.get('/contact/working-hours', getWorkingHours);
 
 module.exports = router;

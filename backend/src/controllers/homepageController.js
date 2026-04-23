@@ -298,7 +298,7 @@ class HomepageController {
 
     async subscribeNewsletter(req, res) {
         try {
-            const { email, phoneNumber, location } = req.body;
+            const { email, phoneNumber, location, source } = req.body;
 
             if (!email && !phoneNumber) {
                 return res.status(400).json({ message: 'An email or phone number is required' });
@@ -314,7 +314,10 @@ class HomepageController {
                     email: email ? email.toLowerCase() : undefined,
                     phoneNumber,
                     location,
-                    source: 'ethiopian-homepage',
+                    source: source || 'ethiopian-homepage',
+                    subscribedAt: new Date(),
+                    isActive: true,
+                    ipAddress: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '',
                 },
                 { upsert: true, new: true, setDefaultsOnInsert: true },
             );
