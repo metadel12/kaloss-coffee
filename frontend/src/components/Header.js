@@ -32,6 +32,7 @@ export default function Header() {
                 </button>
 
                 <div id="our-coffee-menu" className="nav-dropdown-menu">
+                    <Link href="/products" onClick={closeMenu}>Our Coffee</Link>
                     <Link href="/gifts" onClick={closeMenu}>Gift</Link>
                     <Link href="/wholesale" onClick={closeMenu}>Wholesale</Link>
                     <Link href="/limited-edition" onClick={closeMenu}>Limited Edition</Link>
