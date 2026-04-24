@@ -7,7 +7,11 @@ export default function Header() {
     const { user, logout } = useAuth();
     const { getCartItemsCount } = useCart();
     const [menuOpen, setMenuOpen] = useState(false);
-    const closeMenu = () => setMenuOpen(false);
+    const [coffeeMenuOpen, setCoffeeMenuOpen] = useState(false);
+    const closeMenu = () => {
+        setMenuOpen(false);
+        setCoffeeMenuOpen(false);
+    };
     const handleLogout = () => {
         closeMenu();
         logout();
@@ -15,10 +19,24 @@ export default function Header() {
 
     const navContent = (
         <>
-            <Link href="/products" onClick={closeMenu}>Our Coffees</Link>
-            <Link href="/limited-edition" onClick={closeMenu}>Limited Edition</Link>
-            <Link href="/gifts" onClick={closeMenu}>Gift Sets</Link>
-            <Link href="/wholesale" onClick={closeMenu}>Wholesale</Link>
+            <div className={`nav-dropdown ${coffeeMenuOpen ? 'open' : ''}`}>
+                <button
+                    type="button"
+                    className="nav-dropdown-trigger"
+                    aria-expanded={coffeeMenuOpen}
+                    aria-controls="our-coffee-menu"
+                    onClick={() => setCoffeeMenuOpen(previous => !previous)}
+                >
+                    Our Coffee
+                    <span className="nav-dropdown-caret" aria-hidden="true">{coffeeMenuOpen ? 'x' : '+'}</span>
+                </button>
+
+                <div id="our-coffee-menu" className="nav-dropdown-menu">
+                    <Link href="/gifts" onClick={closeMenu}>Gift</Link>
+                    <Link href="/wholesale" onClick={closeMenu}>Wholesale</Link>
+                    <Link href="/limited-edition" onClick={closeMenu}>Limited Edition</Link>
+                </div>
+            </div>
             <Link href="/about" onClick={closeMenu}>About</Link>
             <Link href="/contact" onClick={closeMenu}>Contact</Link>
             <Link href="/compare" onClick={closeMenu}>Compare</Link>

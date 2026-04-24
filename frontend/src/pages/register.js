@@ -80,7 +80,7 @@ export default function Register() {
             setToken(data.token);
             setSuccessOffer(data.welcomeOffer);
             const callbackUrl = typeof router.query.callbackUrl === 'string' ? router.query.callbackUrl : '';
-            router.push(callbackUrl || '/verify-email');
+            router.push(callbackUrl || '/profile');
         } catch (err) {
             setError(err.response?.data?.message || 'Unable to create account.');
         } finally {

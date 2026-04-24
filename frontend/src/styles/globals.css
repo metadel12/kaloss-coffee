@@ -3360,6 +3360,67 @@ body {
     transition: opacity 0.18s ease, transform 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+}
+
+.nav-dropdown-caret {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    line-height: 1;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.nav-dropdown.open .nav-dropdown-caret {
+    background: rgba(230, 177, 126, 0.2);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 190px;
+    display: none;
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(26, 13, 9, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+    backdrop-filter: blur(14px);
+    z-index: 20;
+}
+
+.nav-dropdown.open .nav-dropdown-menu {
+    display: grid;
+    gap: 8px;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.03);
+}
+
 .kaloss-nav a:hover,
 .kaloss-nav button:hover {
     opacity: 1;
@@ -4499,9 +4560,22 @@ body {
 
     .kaloss-nav a,
     .kaloss-nav button,
+    .kaloss-nav .nav-dropdown,
     .kaloss-nav .auth-controls,
     .kaloss-nav .auth-links {
         width: 100%;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        min-width: 0;
+        margin-top: 10px;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-dropdown-trigger {
+        justify-content: space-between;
     }
 
     .kaloss-nav .auth-controls,
